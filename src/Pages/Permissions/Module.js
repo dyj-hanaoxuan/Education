@@ -1,50 +1,57 @@
 import React from 'react'
-import { Table } from 'antd';
+import { Table,Button,Input  } from 'antd';
 import Axios from "../../Axios";
 import api from '../../Api/index'
-const dataSource = [
-
-];
+import { AudioOutlined } from '@ant-design/icons';
 const columns = [
     {
         title: 'id',
-        // dataIndex: 'd_id',
-        // key: 'd_id',
+        dataIndex: 'main_id',
+        key: 'main_id',
     },
     {
         title: '菜名',
-        // dataIndex: 'd_name',
-        // key: 'd_name',
+        dataIndex: 'd_name',
+        key: 'd_name',
     },
     {
         title: '价格',
-        // dataIndex: 'd_price',
-        // key: 'd_price',
+        dataIndex: 'd_price',
+        key: 'd_price',
     },
     {
         title: '原料',
-        // dataIndex: 'd_tips',
-        // key: 'd_tips',
+        dataIndex: 'd_tips',
+        key: 'd_tips',
     },
     {
         title: '口味',
-        // dataIndex: 'd_taste',
-        // key: 'd_taste',
+        dataIndex: 'd_taste',
+        key: 'd_taste',
     },
     {
         title: '种类',
-        // dataIndex: 'd_type',
-        // key: 'd_type',
+        dataIndex: 'd_type',
+        key: 'd_type',
+    },
+    {
+        title: '操作',
+        dataIndex: 'button',
+        key: 'button',
+        render: () =><div><Button type='Default'>编辑</Button>
+            <Button type="primary" danger>
+                删除
+            </Button></div>,
     },
 ];
-
+const { Search } = Input;
 class Module extends React.Component {
     constructor(){
         super()
         this.state={
             arr:[],
+            loading:false
         }
-
     }
     componentWillMount() {
         Axios({
@@ -58,34 +65,60 @@ class Module extends React.Component {
                 'Content-Type': 'application/json',
             }
         }).then(res =>{
-            // console.log(res.data)
+            console.log(res.data)
             this.state.arr = res.data
             this.setState({
-                arr:this.state.arr
+                loading:false,
+                arr:this.state.arr,
             })
-            console.log(this.state.arr)
+        }).catch(err =>{
+            console.log(err)
+        })
+    }
+    handleTableChange(value){
+        console.log(value)
+    }
+    search(value){
+        console.log(value)
+        Axios({
+            url:api.Nav.search,
+            method:'post',
+            data:{
+                d_name:value
+            },
+            timeout: 20000,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(res =>{
+            console.log(res.data)
         }).catch(err =>{
             console.log(err)
         })
     }
     render() {
-        let list = this.state.arr.map((item)=>{
-            return  <tr key={item.main_id}>
-                        <td>{item.d_id}</td>
-                        <td>{item.d_name}</td>
-                        <td>{item.d_price}</td>
-                        <td>{item.d_tips}</td>
-                        <td>{item.d_taste}</td>
-                        <td>{item.d_type}</td>
-                    </tr>
+        const {arr,loading} = this.state;
+        let id = arr.map((item)=>{
+            return item.main_id
         })
         return (
-            <Table
-                dataSource={list}
-                // dataSource={this.state.list}
-                columns={columns}
-                pagination={{pageSize:5}}
-            />
+            <div>
+                <Search
+                    placeholder="input search text"
+                    onSearch={this.search}
+                    style={{ width: 200 }}
+                />
+                <h2><Button className="add" type='primary'>新增</Button></h2>
+                <Table
+                    columns={columns}
+                    dataSource={arr}
+                    key={id}
+                    loading={loading}
+                    pagination={{pageSize:5,defaultCurrent:1}}
+                    onChange={this.handleTableChange}
+                />
+            </div>
+
     )
     }
 }

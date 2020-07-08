@@ -16,7 +16,7 @@ class Login extends React.Component {
             console.log('Success:', values);
             this.props.usersLogin.login()
                 .then((data)=>{
-                    this.props.history.push('Index')
+                    this.props.history.push('/Index')
                     console.log(data)
                 }).catch((err)=>{
                 console.log(err)

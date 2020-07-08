@@ -1,0 +1,37 @@
+.header{
+    background-color: black!important;
+}
+.nav{
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+}
+.nav>div{
+    margin-left: 50px;
+    cursor: pointer;
+}
+.nav>div img{
+    margin-right: 10px;
+}
+.nav div img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.nav>h1{
+    flex-grow: 1;
+    color: white;
+}
+#loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    font-size: 20px;
+}

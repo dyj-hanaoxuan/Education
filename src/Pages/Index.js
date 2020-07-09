@@ -39,6 +39,7 @@ class Index extends React.Component {
                     </Content>
                 </Layout>
             </div>
+            // <ClassModel/>
         )
     }
 }

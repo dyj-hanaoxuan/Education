@@ -16,45 +16,23 @@ import ClassModel from "./Pages/TeachingManagement/ClassModel"
         // <ClassModel/>
 function App() {
   return (
-<<<<<<< HEAD
-    //   <Router>
-    //       <div>
-    //           <HashRouter>
-    //               <Switch>
-    //                   <Route path="/" exact render={()=><Redirect to="/Login"/>}/>
-    //                   <Route path="/Login" component={Login}/>
-    //                   <Route path="/Index" render={()=>
-    //                       <Index>
-    //                           <navRouter/>
-    //                       </Index>
-    //                   }/>
-    //               </Switch>
-    //           </HashRouter>
-    //       </div>
-       
-    //   </Router>
+      // <Router>
+      //     <div>
+      //         <HashRouter>
+      //             <Switch>
+      //                 <Route path="/" exact render={()=><Redirect to="/Login"/>}/>
+      //                 <Route path="/Login" component={Login}/>
+      //                 <Route path="/Index" render={()=>
+      //                     <Index>
+      //                         <navRouter/>
+      //                     </Index>
+      //                 }/>
+      //             </Switch>
+      //         </HashRouter>
+      //     </div>
+      // </Router>
     <ClassModel/>
   )
-=======
-      <Router>
-          {/*<div>*/}
-          {/*    <HashRouter>*/}
-          {/*        <Switch>*/}
-          {/*            <Route path="/" exact render={()=><Redirect to="/Login"/>}/>*/}
-          {/*            <Route path="/Login" component={Login}/>*/}
-          {/*            <Route path="/Index" render={()=>*/}
-          {/*                <Index>*/}
-          {/*                    <navRouter/>*/}
-          {/*                </Index>*/}
-          {/*            }/>*/}
-          {/*        </Switch>*/}
-          {/*    </HashRouter>*/}
-          {/*</div>*/}
-          {/*<Pwd/>*/}
-          <Power/>
-      </Router>
-  );
->>>>>>> 8f7fab1a8c77dd2dc9901f138629fdb72426eba7
 }
 
 export default App;

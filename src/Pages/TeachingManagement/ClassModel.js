@@ -1,6 +1,7 @@
 import React from 'react'
 import {Row, Col, Select, Form, Input, Button,  Table, Tag, Space, Modal, Switch, Pagination   } from 'antd'
 import { SearchOutlined, ExclamationCircleOutlined, CloseOutlined, CheckOutlined, ThunderboltFilled   } from '@ant-design/icons';
+import axios from '../../Axios'
 const { Option } = Select
 const { confirm } = Modal;
  
@@ -91,25 +92,44 @@ class ClassModel extends React.Component {
         })
 
     }
+    //点击新增按钮出现模态框
     add(){
         console.log("新增")
         this.props.history.push('/Index/AddCourse')
     }
     //删除事件
-    dele(text, record, index) {
+    dele(record) {
         confirm({
           title: '请注意',
           icon: <ExclamationCircleOutlined />,
           content: '此操作将删除该条数据！！！',
           onOk() {
-            return new Promise((resolve, reject) => {
-              setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-              console.log(111);
-              console.log("1",index);  
-              console.log("2",record);  
-              console.log("3",text);  
-              
-            }).catch(() => console.log('Oops errors!'));
+            return new Promise((resolve,reject)=> {
+                console.log("2",record.classes_id);  
+                setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+                axios({
+                    method: 'post',
+                    url: `/fengduomodule/classes/fakeDeleteClass`,
+                    data: {
+                        classes_id:record.classes_id
+                    },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => {
+                    console.log(res.data)
+                    // this.token = res.data.token
+                    resolve(res)
+                    this.setState({
+                        listArr:res.data,
+                        total:res.total
+                    })
+                }).catch(err =>{
+                    reject(err)
+                })
+            }).then((data)=>{
+                console.log(data)
+            })
           },
           onCancel() {},
         });
@@ -249,13 +269,14 @@ class ClassModel extends React.Component {
             },
             {
               title: '操作',
-              key: 'action',
+              key: 'classes_id',
+              dataIndex:'classes_id',
               render: (text, record, index) => (
                 <Space size="middle">
                   {/* <a>Invite {record.name}</a>
                   <a>Delete</a> */}
                   <Button type="primary">修改</Button>
-                  <Button type="primary" onClick={()=>this.dele(text, record, index)} danger>删除</Button>
+                  <Button type="primary" onClick={()=>this.dele(record)} danger>删除</Button>
                 </Space>
               ),
             },

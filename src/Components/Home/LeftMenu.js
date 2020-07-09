@@ -14,7 +14,7 @@ class LeftMenu extends React.Component {
         }
     }
     componentWillMount() {
-        let menuList = this.bingMenu(this.props.usersLogin.user.menuInfo)
+        let menuList = this.bingMenu(this.props.usersLogin.user.powerOrmList)
         this.setState({
             leftMenu:menuList
         })
@@ -22,20 +22,21 @@ class LeftMenu extends React.Component {
     componentDidMount() {
         window.addEventListener('beforeunload',()=>{
             this.props.usersLogin.SetUser()
-            this.props.usersLogin.SetUser()
+            // this.props.usersLogin.SetUser()
         })
     }
     bingMenu(menuList){
         let MenuList = menuList.map((item)=>{
-            if(item.menuChilds.length===0){  //没有子菜单
+            if(item.powerList.length === 0){  //没有子菜单
                 let IconMenu =antIcons[item.menuImgClass]
-                return <Menu.Item key={item.menuId}  icon={  <IconMenu />}>
-                    <NavLink to={item.menuUrl}>{item.menuName}</NavLink>
+                return <Menu.Item key={item.power_id}  icon={  <IconMenu />}>
+                    <NavLink to={item.menUrl}>{item.power_name}</NavLink>
                 </Menu.Item>
-            }else {
+            }
+            else {
                 let IconMenu =antIcons[item.menuImgClass];
-                return <SubMenu key={item.menuId} title={item.menuName}  icon={  <IconMenu />}>
-                    {this.bingMenu(item.menuChilds)}
+                return <SubMenu key={item.power_id} title={item.power_name}  icon={  <IconMenu />}>
+                    {this.bingMenu(item.powerList)}
                 </SubMenu>
             }
         })

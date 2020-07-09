@@ -22,18 +22,19 @@ class user extends Component{
         return new Promise((resolve,reject)=> {
             axios({
                 method: 'post',
-                url: api.Nav.Navbar,
+                url: api.Nav.login,
                 data: {
-                    userName: 'xxx',
-                    userPwd: 123
+                    admin_phone:18728102542,
+                    admin_pwd: 123456
                 },
                 timeout: 20000,
                 headers: {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
+                console.log(res.data)
                 this.user = res.data.data;
-                this.token = res.data.token
+                // this.token = res.data.token
                 resolve(res)
             }).catch(err =>{
                 reject(err)

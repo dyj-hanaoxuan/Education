@@ -1,12 +1,7 @@
 import React from 'react'
-import {Row, Col, Select, Form, Input, Button,  Table, Tag, Space, Modal, Switch, Pagination   } from 'antd'
-import { SearchOutlined, ExclamationCircleOutlined, CloseOutlined, CheckOutlined   } from '@ant-design/icons';
-const { Option } = Select
-const { confirm } = Modal;
- 
-  
 
 class RequiredCourses extends React.Component {
+<<<<<<< HEAD
    
    
      constructor(props){
@@ -133,60 +128,12 @@ class RequiredCourses extends React.Component {
         })
     }
 
+=======
+>>>>>>> 223b31e92dfdfec9616fd59bc3564dec75db5f35
     render() {
-        const columns = [
-            {
-              title: '序号',
-              dataIndex: 'name',
-              key: 'name',
-              render: text => <a>{text}</a>,
-            },
-            {
-              title: '课程名称',
-              dataIndex: 'age',
-              key: 'age',
-            },
-            {
-              title: '所属科目',
-              dataIndex: 'address',
-              key: 'address',
-            },
-            {
-                title: '等级',
-                dataIndex: 'up',
-                key: 'up',
-              },
-              {
-                title: '上架状态',
-                key: 'tag',
-                render: (text, record) => (
-                  <Space size="middle">
-                    {/* <a>Invite {record.name}</a>
-                    <a>Delete</a> */}
-                    <Switch
-                    checkedChildren={<CheckOutlined />}
-                    unCheckedChildren={<CloseOutlined />}
-                    defaultChecked={record.status}
-                    onClick={this.changestatus}
-                    />
-                  </Space>
-                ),
-              },
-            {
-              title: '操作',
-              key: 'action',
-              render: (text, record, index) => (
-                <Space size="middle">
-                  {/* <a>Invite {record.name}</a>
-                  <a>Delete</a> */}
-                  <Button type="primary">修改</Button>
-                  <Button type="primary" onClick={()=>this.dele(text, record, index)} danger>删除</Button>
-                </Space>
-              ),
-            },
-          ];
         return (
             <div>
+<<<<<<< HEAD
                 {/* RequiredCourses */}
                 {/* 必修课程管理 */}
                 {/* 顶部查询模块--start */}
@@ -290,6 +237,10 @@ class RequiredCourses extends React.Component {
                    total={this.state.total}
                   ></Pagination>
                 {/* 表单内容--end */}
+=======
+                RequiredCourses
+                必修课程管理
+>>>>>>> 223b31e92dfdfec9616fd59bc3564dec75db5f35
             </div>
         )
     }

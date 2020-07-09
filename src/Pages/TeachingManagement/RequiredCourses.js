@@ -40,7 +40,9 @@ class RequiredCourses extends React.Component {
                 val2:'',
                 val3:'',
                 input:'',
-            //搜索栏结束   
+            //搜索栏结束  
+                current: 1,  // 当前页
+                total: 15 ,  
               
         }
     }
@@ -89,6 +91,13 @@ class RequiredCourses extends React.Component {
         console.log(status);
 
     }
+    // 分页
+    onChange = page => {
+      console.log(page);
+      this.setState({
+        current: page,
+      });
+    };
       // 组件挂载前（生命周期）
     componentWillMount() {
         // Axios请求
@@ -274,8 +283,12 @@ class RequiredCourses extends React.Component {
                 <Table 
                 columns={columns} 
                 dataSource={this.state.data} 
-                pagination={ false }/>
-                  
+                pagination={ false  }/>
+                  <Pagination
+                   current={this.state.current}
+                   onChange={this.onChange} 
+                   total={this.state.total}
+                  ></Pagination>
                 {/* 表单内容--end */}
             </div>
         )

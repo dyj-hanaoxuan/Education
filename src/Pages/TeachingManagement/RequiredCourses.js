@@ -1,9 +1,10 @@
 import React from 'react'
-
+import {Row, Col, Select, Form, Input, Button,  Table, Tag, Space, Modal, Switch, Pagination   } from 'antd'
+import { SearchOutlined, ExclamationCircleOutlined, CloseOutlined, CheckOutlined   } from '@ant-design/icons';
+import Axios from "axios"
+const { Option } = Select
+const { confirm } = Modal;
 class RequiredCourses extends React.Component {
-<<<<<<< HEAD
-   
-   
      constructor(props){
             super(props);
             this.state= {
@@ -96,44 +97,92 @@ class RequiredCourses extends React.Component {
       // 组件挂载前（生命周期）
     componentWillMount() {
         // Axios请求
-        // Axios.post("/reception/queryType")
-        //     .then((res)=>{
-        //         console.log(res.data)
-        //     this.setState({
-        //         list:res.data
-        //     })
-        // }).catch(function (err) {
-        //     console.log(err)
-        // })
-        // fetch请求（第一个then是返回的格式是什么格式；第二个then才是说具体的json是什么数据;catch是出现的错误）
-        fetch(`api/classes/selectAllClassesType`,{
-            // 请求的方式
-            method:"POST",
-            // 请求头
-            headers:{
-                'Content-Type': 'application/json'
-            },
-            // 要传的参数
-            body:JSON.stringify({
-            })
-        }).then( (res) =>{
-            return res.json()
-        }).then( (json) =>{
-            console.log(json)
+        Axios.post("api/service-videoup/allType")
+            .then((res)=>{
+                console.log(res.data)
             this.setState({
-                list:json
+                list:res.data
             })
         }).catch(function (err) {
             console.log(err)
         })
+        // fetch请求（第一个then是返回的格式是什么格式；第二个then才是说具体的json是什么数据;catch是出现的错误）
+    //     fetch(`api/service-videoup/allType`,{
+    //         // 请求的方式
+    //         method:"POST",
+    //         // 请求头
+    //         headers:{
+    //             'Content-Type': 'application/json'
+    //         },
+    //         // 要传的参数
+    //         body:JSON.stringify({
+    //         })
+    //     }).then( (res) =>{
+    //         return res.json()
+    //     }).then( (json) =>{
+    //         console.log(json)
+    //         this.setState({
+    //             list:json
+    //         })
+    //     }).catch(function (err) {
+    //         console.log(err)
+    //     })
     }
 
-=======
->>>>>>> 223b31e92dfdfec9616fd59bc3564dec75db5f35
     render() {
+        const columns = [
+            {
+              title: '序号',
+              dataIndex: 'name',
+              key: 'name',
+              render: text => <a>{text}</a>,
+            },
+            {
+              title: '课程名称',
+              dataIndex: 'age',
+              key: 'age',
+            },
+            {
+              title: '所属科目',
+              dataIndex: 'address',
+              key: 'address',
+            },
+            {
+                title: '等级',
+                dataIndex: 'up',
+                key: 'up',
+              },
+              {
+                title: '上架状态',
+                key: 'tag',
+                render: (text, record) => (
+                  <Space size="middle">
+                    {/* <a>Invite {record.name}</a>
+                    <a>Delete</a> */}
+                    <Switch
+                    checkedChildren={<CheckOutlined />}
+                    unCheckedChildren={<CloseOutlined />}
+                    defaultChecked={record.status}
+                    onClick={this.changestatus}
+                    />
+                  </Space>
+                ),
+              },
+            {
+              title: '操作',
+              key: 'action',
+              render: (text, record, index) => (
+                <Space size="middle">
+                  {/* <a>Invite {record.name}</a>
+                  <a>Delete</a> */}
+                  <Button type="primary">修改</Button>
+                  <Button type="primary" onClick={()=>this.dele(text, record, index)} danger>删除</Button>
+                </Space>
+              ),
+            },
+          ];
         return (
             <div>
-<<<<<<< HEAD
                 {/* RequiredCourses */}
                 {/* 必修课程管理 */}
                 {/* 顶部查询模块--start */}
@@ -156,7 +205,6 @@ class RequiredCourses extends React.Component {
                             <Option value="Yiminghe">yiminghe</Option>
                         </Select>
                     </Form.Item>
-
                     </Form>
                     </Col>
                     <Col span={8}>
@@ -237,10 +285,6 @@ class RequiredCourses extends React.Component {
                    total={this.state.total}
                   ></Pagination>
                 {/* 表单内容--end */}
-=======
-                RequiredCourses
-                必修课程管理
->>>>>>> 223b31e92dfdfec9616fd59bc3564dec75db5f35
             </div>
         )
     }

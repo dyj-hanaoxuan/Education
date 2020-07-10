@@ -56,9 +56,9 @@ function hideLoading () {
 
 // 请求前拦截
 axios.interceptors.request.use(config => {
-    const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
     if (token){
-        token && (config.headers.Authorization = token)
+        config.headers['token']=token
     }
     // requestCount为0，才创建loading, 避免重复创建
     if (config.headers.isLoading !== false) {

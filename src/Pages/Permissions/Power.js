@@ -1,8 +1,9 @@
 import React from 'react'
 import Axios from '../../Axios'
 import api from "../../Api";
-import Add from '../../Components/Power/Add'
+import tree from '../../Components/Power/Add'
 import { Table  } from 'antd';
+import moment from "moment";
 const columns = [
     {
         title: '角色编号',
@@ -15,6 +16,7 @@ const columns = [
     {
         title: '修改时间',
         dataIndex: 'role_creatime',
+        render: () => moment().format('YYYY.MM.DD.HH:mm')
     },
     {
         title: '角色描述',
@@ -23,7 +25,7 @@ const columns = [
     {
         title: '操作',
         dataIndex: 'role_id',
-        render: (id) => <Add id={id}/>
+        render: (id) => <tree id={id}/>
     },
     ];
 

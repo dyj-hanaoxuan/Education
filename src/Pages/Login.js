@@ -1,23 +1,20 @@
 import React from 'react'
 import Axios from '../Axios'
 import api from '../Api/index'
-import { Form, Input, Button, Checkbox,Modal } from 'antd';
+import {Form, Input, Button, Checkbox, Modal, message} from 'antd';
 import {inject,observer} from 'mobx-react'
 
 @inject('usersLogin')
 @observer
 class Login extends React.Component {
-    state = {
-        ModalText: 'Content of the modal',
-        visible: false,
-        confirmLoading: false,
-    };
     constructor(){
         super()
         this.state={
             newPwd:'',
             phone:'',
-            yzm:''
+            yzm:'',
+            visible: false,
+            confirmLoading: false,
         };
     }
     showModal = () => {
@@ -38,7 +35,8 @@ class Login extends React.Component {
             });
         }, 1000);
     };
-    Find = values => {
+    Find = (values) => {
+        console.log(values)
         this.setState({
             newPwd:values.newPwd,
             phone:values.phone,
@@ -46,9 +44,8 @@ class Login extends React.Component {
         })
         console.log('Success:', values);
     };
-    //注册
-    reg(){
-        console.log(this.state.phone)
+    //找回密码
+    reg = value =>{
         Axios({
             url:api.Nav.FindPwd,
             method:'post',
@@ -62,6 +59,12 @@ class Login extends React.Component {
                 'Content-Type': 'application/json',
             }
         }).then(res =>{
+            if (res.data.code===200){
+                message.success('修改成功')
+                this.setState({
+                    visible: false,
+                })
+            }
             console.log(res)
         })
     }
@@ -71,8 +74,26 @@ class Login extends React.Component {
             visible: false,
         });
     };
+    fa =() =>{
+        console.log(this.state.phone)
+        Axios({
+            url:api.Nav.emil,
+            method:'post',
+            timeout: 20000,
+            params:{
+              phone:15682008662
+            },
+        }).then(res =>{
+            console.log(res)
+            if (res.data.code===200){
+                message.success('发送成功')
+            }
+        }).catch(err =>{
+            console.log(err)
+        })
+    }
     render() {
-        const { visible, confirmLoading, ModalText } = this.state;
+        const { visible, confirmLoading } = this.state;
         const layout = {
             labelCol: { span: 8 },
             wrapperCol: { span: 16 },
@@ -94,9 +115,6 @@ class Login extends React.Component {
         const onFinishFailed = errorInfo => {
             console.log('Failed:', errorInfo);
         };
-        const onFinishFail = errorInfo => {
-            console.log('Failed:', errorInfo);
-        };
         return (
             <div>
                 <Form
@@ -113,7 +131,6 @@ class Login extends React.Component {
                     >
                         <Input />
                     </Form.Item>
-
                     <Form.Item
                         label="密码"
                         name="password"
@@ -121,11 +138,9 @@ class Login extends React.Component {
                     >
                         <Input.Password />
                     </Form.Item>
-
                     <Form.Item {...tailLayout} name="remember" valuePropName="checked">
                         <Checkbox>Remember me</Checkbox>
                     </Form.Item>
-
                     <Form.Item {...tailLayout}>
                         <Button type="primary" htmlType="submit">
                             登录
@@ -138,16 +153,13 @@ class Login extends React.Component {
                 <Modal
                     title="Title"
                     visible={visible}
-                    onOk={this.handleOk}
-                    confirmLoading={confirmLoading}
-                    onCancel={this.handleCancel}
+                    footer={null}
                 >
                     <Form
                         {...layout}
                         name="basics"
                         initialValues={{ remember: true }}
-                        onFinish={this.Find.bind(this)}
-                        onFinishFailed={onFinishFail}
+                        onFinish={this.Find}
                     >
                         <Form.Item
                             label="手机号"
@@ -171,8 +183,13 @@ class Login extends React.Component {
                         >
                             <Input />
                         </Form.Item>
-                        <Button type="default">发送验证码</Button>
-                        <Button type="default" htmlType="submit" onClick={this.reg.bind(this)}>找回</Button>
+                        <Button type="default" onClick={this.fa}>发送验证码</Button>
+                        <Form.Item>
+                            <Button key="back" onClick={this.handleCancel}>
+                                返回
+                            </Button>,
+                            <Button type="default" htmlType="submit" onClick={this.reg.bind(this)}>找回</Button>
+                        </Form.Item>
                     </Form>
                 </Modal>
             </div>

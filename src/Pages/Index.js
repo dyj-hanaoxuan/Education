@@ -3,7 +3,7 @@ import { Layout,PageHeader } from 'antd';
 import LeftMenu from '../Components/Home/LeftMenu'
 import head from '../Common/images/head.png'
 import Router from '../Router/Router'
-
+import Logo from '../Common/images/logo_two.png'
 import {inject,observer} from 'mobx-react'
 const { Header, Content, Sider } = Layout;
 const routes = [
@@ -12,20 +12,8 @@ const routes = [
         breadcrumbName: '首页',
     },
     {
-        path: 'first',
-        breadcrumbName: '个人中心',
-    },
-    {
-        path: 'Index/Accounts',
-        breadcrumbName: '账户管理',
-    },
-    {
-        path: 'Index/Module',
-        breadcrumbName: '模块管理',
-    },
-    {
         path: 'Index/Role',
-        breadcrumbName: '角色管理',
+        breadcrumbName: '个人中心',
     },
 ];
 @inject('usersLogin')
@@ -41,7 +29,7 @@ class Index extends React.Component {
                 <Layout>
                     <Header className="header">
                         <div className="nav">
-                            <h1>logo</h1>
+                            <h1><img id='logo' src={Logo}/></h1>
                             <div>
                                 <img src={head}/>
                                 <span>管理员</span>

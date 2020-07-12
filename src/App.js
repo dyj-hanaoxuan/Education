@@ -1,6 +1,7 @@
 import React from 'react';
 import Index from './Pages/Index'
 import Login from './Pages/Login'
+import Re from './Pages/Permissions/Role'
 import {
     BrowserRouter as Router,
     Route,
@@ -12,6 +13,7 @@ import navRouter from "./Router/Router";
 function App() {
   return (
       <Router>
+          {/*<Re/>*/}
           <div>
               <HashRouter>
                   <Switch>

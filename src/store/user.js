@@ -1,5 +1,6 @@
 import {observable,action} from "mobx";
 import React, {Component} from "react";
+import { message } from 'antd';
 import api from '../Api/index'
 import axios from '../Axios'
 class user extends Component{
@@ -24,18 +25,24 @@ class user extends Component{
                 method: 'post',
                 url: api.Nav.login,
                 data: {
-                    admin_phone:18728102542,
-                    admin_pwd: 123456
+                    admin_phone:this.username.username,
+                    admin_pwd: this.username.password
                 },
                 timeout: 20000,
                 headers: {
                     'Content-Type': 'application/json',
                 }
             }).then(res => {
-                console.log(res.data)
-                this.user = res.data.data;
-                // this.token = res.data.token
-                resolve(res)
+                if (res.data.code ===200){
+                    console.log(res.data)
+                    this.user = res.data.data;
+                    // this.token = res.data.token
+                    message.success('登录成功')
+                    resolve(res)
+                }else {
+                    message.warning('用户名或密码错误')
+                }
+
             }).catch(err =>{
                 reject(err)
             })

@@ -22,7 +22,7 @@ class LeftMenu extends React.Component {
     componentDidMount() {
         window.addEventListener('beforeunload',()=>{
             this.props.usersLogin.SetUser()
-            // this.props.usersLogin.SetUser()
+            this.props.usersLogin.SetToken()
         })
     }
     bingMenu(menuList){

@@ -98,9 +98,6 @@ class Module extends React.Component {
     }
     render() {
         const {arr,loading} = this.state;
-        let id = arr.map((item)=>{
-            return item.main_id
-        })
         return (
             <div>
                 <Search
@@ -112,7 +109,6 @@ class Module extends React.Component {
                 <Table
                     columns={columns}
                     dataSource={arr}
-                    key={id}
                     loading={loading}
                     pagination={{pageSize:5,defaultCurrent:1}}
                     onChange={this.handleTableChange}
